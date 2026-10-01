@@ -8,7 +8,9 @@ import site_config as cfg
 from content import PRODUCTS, SERVICES, SOLUTIONS, WHY_US
 from styles import CSS
 
-ASSETS = Path(__file__).parent / "assets"
+ROOT = Path(__file__).parent
+# Logos normally live in assets/, but also work if uploaded next to app.py
+ASSETS = ROOT / "assets" if (ROOT / "assets" / "logo.png").exists() else ROOT
 LOGO = ASSETS / "logo.png"              # official Caseware logo, dark text (optional)
 LOGO_WHITE = ASSETS / "logo_white.png"  # official Caseware logo, white text (optional)
 
