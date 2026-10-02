@@ -20,24 +20,6 @@ PRODUCTS = [
         "ideal_for": "Audit firms, accounting practices and corporate finance teams",
     },
     {
-        "name": "Caseware IDEA",
-        "category": "Data Analytics",
-        "tagline": "Analyse 100% of your data, not just a sample.",
-        "summary": (
-            "A data analysis tool built for auditors, accountants and finance "
-            "professionals. Import data from almost any source, test entire "
-            "populations and document every step for your audit file."
-        ),
-        "features": [
-            "Import from ERPs, databases, spreadsheets, PDFs and print reports",
-            "Built-in audit tests: duplicates, gaps, Benford's Law, stratification, ageing",
-            "Statistical and monetary unit sampling",
-            "Read-only source data with a complete history log of every action",
-            "Automate repeat tests with IDEAScript, Python and visual workflows",
-        ],
-        "ideal_for": "External and internal auditors, fraud examiners, tax and compliance teams",
-    },
-    {
         "name": "Caseware Cloud",
         "category": "Platform",
         "tagline": "One secure hub for your engagements, clients and staff.",
@@ -149,7 +131,7 @@ SOLUTIONS = [
             "Run ISA-compliant audits from planning to completion with a "
             "risk-based methodology, a single engagement file and built-in review."
         ),
-        "products": ["Caseware Working Papers", "Caseware Audit International", "Caseware IDEA", "Caseware Cloud"],
+        "products": ["Caseware Working Papers", "Caseware Audit International", "Caseware Cloud"],
     },
     {
         "title": "Accounting & financial reporting",
@@ -163,28 +145,97 @@ SOLUTIONS = [
     {
         "title": "Internal audit & compliance",
         "text": (
-            "Test complete populations of transactions, find anomalies and "
-            "control failures, and repeat the same tests every period."
+            "Plan and document internal audit engagements with structured "
+            "working papers, sign-offs and a clear review trail."
         ),
-        "products": ["Caseware IDEA", "Caseware Working Papers"],
+        "products": ["Caseware Working Papers", "Caseware Cloud"],
     },
     {
         "title": "Government & regulators",
         "text": (
             "Give public sector audit and inspection teams a consistent, "
-            "documented way to analyse data and manage engagements."
+            "documented way to manage engagements and prepare financial statements."
         ),
-        "products": ["Caseware IDEA", "Caseware Working Papers", "Caseware Cloud"],
+        "products": ["Caseware Working Papers", "Caseware Cloud", "Caseware Financials (IFRS)"],
     },
 ]
 
 SERVICES = [
     ("Licensing & renewals", "New licences, additional users and annual renewals, quoted and invoiced locally."),
-    ("Implementation", "Installation, configuration and firm set-up so your team is productive from day one."),
-    ("Training", "Hands-on training for Working Papers and IDEA, from first-time users to advanced topics."),
+    ("Onboarding", "Help with installation and initial set-up so your team can start using the software."),
+    ("Training", "Hands-on training for Working Papers, from first-time users to advanced topics."),
     ("Templates & customisation", "Firm-standard financial statement and working paper templates tailored to your practice."),
     ("Local support", "Help from a team in your time zone that understands UAE reporting requirements."),
-    ("Data analytics assistance", "Support in designing and automating IDEA tests for audit and compliance work."),
+    ("Product advice", "Guidance on which Caseware products and licence types fit your team."),
+]
+
+GUIDES = [
+    (
+        "Preparing your trial balance for import",
+        "Export account number, description and closing balance, and check that the total balances. "
+        "Keep account numbers the same from year to year so last year's mapping carries over.",
+    ),
+    (
+        "Map each account once",
+        "Assign every account to a group so lead sheets and financial statements fill in automatically. "
+        "In later years only new accounts need attention.",
+    ),
+    (
+        "Record adjustments in the file",
+        "Post adjusting and reclassifying entries in Working Papers rather than in a separate spreadsheet, "
+        "so lead sheets and statements always agree with the adjusted trial balance.",
+    ),
+    (
+        "Review with sign-offs and notes",
+        "Use preparer and reviewer sign-offs on each document and raise review notes inside the file, "
+        "so open points are visible and cleared before completion.",
+    ),
+    (
+        "Close the file properly",
+        "At the end of the engagement, clear outstanding notes, clean up and lock down the file "
+        "so the final version is protected.",
+    ),
+    (
+        "Roll forward for next year",
+        "Start the new year from the completed file. Closing balances become comparatives and your "
+        "documents and mapping are kept, so the team is not rebuilding the file each year.",
+    ),
+]
+
+FAQS = [
+    (
+        "What is Caseware Working Papers?",
+        "Software for assurance and financial reporting engagements. It brings the trial balance, "
+        "working papers and financial statements together in one engagement file.",
+    ),
+    (
+        "Can we import a trial balance from our accounting system?",
+        "Yes. Trial balances can be imported from many accounting packages, and from Excel or text files.",
+    ),
+    (
+        "Which reporting frameworks are covered?",
+        "The Financials content covers IFRS and IFRS for SMEs. Contact us to confirm the content "
+        "available for your requirements.",
+    ),
+    (
+        "Is it desktop or cloud?",
+        "Working Papers is installed on your computers. Caseware Cloud is an online platform, and the two "
+        "can be connected so teams can share and manage engagement files online.",
+    ),
+    (
+        "Do you provide training?",
+        "Yes. We offer training for new and existing users. Contact us to discuss what your team needs.",
+    ),
+    (
+        "How do I get a demo or a quote?",
+        "Send us your details through the Contact Us page and we will get back to you.",
+    ),
+]
+
+RESOURCE_LINKS = [
+    ("Caseware blog", "Articles from Caseware on audit, accounting and technology.", "https://www.caseware.com/resources/blog"),
+    ("Caseware support", "Caseware's customer support page.", "https://www.caseware.com/support"),
+    ("MyCaseware", "Sign in to your Caseware account.", "https://my.caseware.com/"),
 ]
 
 WHY_US = [

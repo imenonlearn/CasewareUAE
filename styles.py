@@ -129,6 +129,13 @@ img.stLogo { height: 27px; width: auto; max-width: none; }
     color: #fff; background: var(--cw-grad-btn); margin: 0 6px 12px 0; }
 .cw-tag.line { background: none; border: 1px solid #fff; }
 
+/* ---------- FAQ ---------- */
+.cw-faq { max-width: 860px; margin: 40px auto 0; text-align: left; }
+.cw-faq details { border: 1px solid #fff; border-top: 5px solid #4257F5; border-radius: 15px; padding: 18px 26px 14px;
+    margin-bottom: 16px; background: rgba(26,27,29,.85); }
+.cw-faq summary { color: #fff; font-size: 19px; font-weight: 700; cursor: pointer; line-height: 1.4; }
+.stApp .cw-bleed .cw-faq details p { color: #fff; margin: 12px 0 6px; }
+
 /* ---------- Call to action ---------- */
 .cw-cta { text-align: center; color: #fff; padding: 120px 0 130px;
     background: linear-gradient(180deg, #FF645C 0%, #A85A9C 38%, #5C5FD6 75%, #5062E0 100%); }

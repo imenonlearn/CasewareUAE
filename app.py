@@ -5,7 +5,7 @@ from urllib.parse import quote
 import streamlit as st
 
 import site_config as cfg
-from content import PRODUCTS, SERVICES, SOLUTIONS, WHY_US
+from content import FAQS, GUIDES, PRODUCTS, RESOURCE_LINKS, SERVICES, SOLUTIONS, WHY_US
 from styles import CSS
 
 ROOT = Path(__file__).parent
@@ -121,6 +121,7 @@ def footer() -> None:
                         <div class="cw-fh">Company</div>
                         <a href="about" target="_self">About Us</a>
                         <a href="services" target="_self">Services</a>
+                        <a href="knowledge" target="_self">Knowledge</a>
                         <a href="contact" target="_self">Contact</a>
                     </div>
                     <div>
@@ -151,8 +152,8 @@ def sector_cards(cards) -> str:
 def home() -> None:
     hero(
         f"{g('Audit and reporting software')} built for the realities of the {g('UAE market')}",
-        "Caseware UAE supplies and supports software for audit, assurance, financial reporting and data "
-        "analytics. Our solutions help practice firms, corporate finance teams and public sector bodies "
+        "Caseware UAE supplies and supports software for audit, assurance and financial "
+        "reporting. Our solutions help practice firms, corporate finance teams and public sector bodies "
         "improve consistency, strengthen compliance and simplify complex workflows.",
         btn("Contact Sales", "contact") + btn("Explore Products", "products", "white"),
         small=False,
@@ -185,13 +186,12 @@ def home() -> None:
     split(
         "Built with the UAE market in mind",
         "<p>Organisations in the UAE need both flexibility and control. Our solutions are practical to "
-        "implement, scale as you grow and align with local requirements and international standards.</p>"
+        "adopt, scale as you grow and align with local requirements and international standards.</p>"
         "<ul>"
         "<li>Financial statements under IFRS and IFRS for SMEs</li>"
         "<li>Audits performed under International Standards on Auditing</li>"
         "<li>Audited accounts for free zone and mainland requirements</li>"
         "<li>Reliable year-end figures to support UAE Corporate Tax returns</li>"
-        "<li>Data analytics for VAT, internal audit and compliance reviews</li>"
         "</ul>",
         [(title, text) for title, text in WHY_US],
         panel_first=True,
@@ -213,7 +213,7 @@ def home() -> None:
 def products() -> None:
     hero(
         f"The {g('Caseware')} product suite",
-        "Connected tools covering the full engagement: data analysis, audit, review and financial statements.",
+        "Connected tools covering the full engagement: audit, review and financial statements.",
     )
     categories = ["All"] + sorted({p["category"] for p in PRODUCTS})
     html('<div class="cw-space"></div>')
@@ -291,6 +291,44 @@ def services() -> None:
     footer()
 
 
+def knowledge() -> None:
+    hero(
+        f"{g('Knowledge')} hub",
+        "Practical guidance, answers to common questions and links to official Caseware resources.",
+    )
+    html(f"""
+        <section class="cw-bleed cw-light deco">
+            <div class="cw-wrap">
+                <div class="cw-h2 cw-grad" role="heading" aria-level="2">Getting more from Working Papers</div>
+                {out_cards([(title, f'<p>{text}</p>') for title, text in GUIDES], columns=3)}
+            </div>
+        </section>
+    """)
+    faqs = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in FAQS)
+    html(f"""
+        <section class="cw-bleed cw-dark">
+            <div class="cw-wrap">
+                <div class="cw-h2 cw-grad" role="heading" aria-level="2">Frequently asked questions</div>
+                <div class="cw-faq">{faqs}</div>
+            </div>
+        </section>
+    """)
+    links = [
+        (title, f'<p>{text}</p><p style="margin-top:16px"><a class="cw-btn sm" href="{url}" target="_blank">Open &nbsp;&rarr;</a></p>')
+        for title, text, url in RESOURCE_LINKS
+    ]
+    html(f"""
+        <section class="cw-bleed cw-light">
+            <div class="cw-wrap">
+                <div class="cw-h2 cw-grad" role="heading" aria-level="2">Official Caseware resources</div>
+                {out_cards(links, columns=3)}
+            </div>
+        </section>
+    """)
+    cta()
+    footer()
+
+
 def about() -> None:
     hero(f"About {g('Caseware UAE')}", cfg.ABOUT_US)
     split(
@@ -305,7 +343,7 @@ def about() -> None:
     split(
         "Our role in the UAE",
         "<p>As the distributor for the UAE, we are your local point of contact for Caseware products: "
-        "advice on the right solution, licensing, implementation, training and day-to-day support.</p>" + operated,
+        "advice on the right solution, licensing, onboarding, training and day-to-day support.</p>" + operated,
         [(title, text) for title, text in WHY_US],
         panel_first=True,
     )
@@ -373,6 +411,7 @@ PAGES = [
     st.Page(products, title="Products", url_path="products"),
     st.Page(solutions, title="Solutions", url_path="solutions"),
     st.Page(services, title="Services", url_path="services"),
+    st.Page(knowledge, title="Knowledge", url_path="knowledge"),
     st.Page(about, title="Who We Are", url_path="about"),
     st.Page(contact, title="Contact Us", url_path="contact"),
 ]
