@@ -55,6 +55,12 @@ img.stLogo { height: 60px; width: auto; max-width: none; }
 .cw-topbar { background: #303333; color: #fff; font-size: 15px; padding: 8px 0; }
 .cw-topbar .cw-wrap { display: flex; justify-content: space-between; align-items: center; gap: 6px 24px; flex-wrap: wrap; }
 .stApp .cw-topbar a { color: #fff; font-weight: 500; }
+.cw-topleft { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 22px; }
+.cw-social { display: flex; align-items: center; gap: 16px; color: #fff; }
+.cw-social a, .cw-social span { display: inline-flex; color: inherit; opacity: .9; }
+.stApp .cw-social a:hover { opacity: 1; color: #FF8A84; }
+.cw-footer .cw-social { margin-top: 18px; }
+.cw-social.on-light { color: #1A1B1D; margin: 4px 0 8px; }
 .cw-contacts { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 20px; }
 .cw-contacts span { white-space: nowrap; }
 .stApp .cw-topbar a.cw-top-cta { display: inline-block; padding: 9px 18px 7px; border-radius: 10px; white-space: nowrap;
@@ -69,6 +75,8 @@ img.stLogo { height: 60px; width: auto; max-width: none; }
         radial-gradient(rgba(255,255,255,.13) 1px, transparent 1.6px) 0 0 / 22px 22px,
         #0A0B0F; }
 .cw-hero.small { padding: 70px 0 76px; }
+.cw-hero-badge { display: inline-block; background: #fff; border-radius: 12px; padding: 12px 22px; margin-bottom: 26px; }
+.cw-hero-badge img { height: 64px; display: block; }
 .cw-h1 { font-size: 50px; font-weight: 700; line-height: 1.3; max-width: 860px; margin: 0 auto 22px; color: #fff; }
 .stApp .cw-bleed p.cw-lead { font-size: 22px; line-height: 1.5; max-width: 1060px; margin: 0 auto 34px; color: #fff; }
 .cw-hero.small p.cw-lead { margin-bottom: 0; max-width: 820px; }

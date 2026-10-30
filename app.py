@@ -40,6 +40,37 @@ def img_tag(path: Path, cls: str, alt: str) -> str:
     return f'<img class="{cls}" src="data:image/png;base64,{data}" alt="{alt}">'
 
 
+_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{}</svg>'
+SOCIAL_ICONS = {
+    "Facebook": '<path d="M15.5 3H13a4 4 0 0 0-4 4v2.5H7v3.5h2V21h3.5v-8h2.6l.5-3.5h-3.1V7.5a1 1 0 0 1 1-1h2z"/>',
+    "LinkedIn": '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6"/><path d="M8 7.5v.01"/>'
+                '<path d="M12 17v-6"/><path d="M12 13.5c0-1.5 1-2.5 2.5-2.5S17 12 17 13.5V17"/>',
+    "X": '<path d="M4 4l16 16"/><path d="M20 4l-6.5 7"/><path d="M4 20l6.5-7"/>',
+    "Instagram": '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/>'
+                 '<path d="M17.5 6.5v.01"/>',
+    "YouTube": '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/>',
+}
+
+
+def social_links(cls: str = "") -> str:
+    urls = {
+        "Facebook": getattr(cfg, "FACEBOOK_URL", ""),
+        "LinkedIn": getattr(cfg, "LINKEDIN_URL", ""),
+        "X": getattr(cfg, "X_URL", ""),
+        "Instagram": getattr(cfg, "INSTAGRAM_URL", ""),
+        "YouTube": getattr(cfg, "YOUTUBE_URL", ""),
+    }
+    items = []
+    for name, paths in SOCIAL_ICONS.items():
+        icon = _ICON.format(paths)
+        if urls[name]:
+            items.append(f'<a href="{urls[name]}" target="_blank" title="{name}" aria-label="{name}">{icon}</a>')
+        else:
+            # Account not created yet: show the icon without a link
+            items.append(f'<span title="{name}" aria-label="{name}">{icon}</span>')
+    return f'<div class="cw-social {cls}">{"".join(items)}</div>'
+
+
 def topbar() -> None:
     contacts = []
     if cfg.EMAIL:
@@ -51,18 +82,19 @@ def topbar() -> None:
     html(f"""
         <section class="cw-bleed cw-topbar">
             <div class="cw-wrap">
-                <span>Distributor of Caseware software in the United Arab Emirates</span>
+                <div class="cw-topleft">{social_links()}<span>Distributor of Caseware software in the United Arab Emirates</span></div>
                 <div class="cw-contacts">{''.join(f'<span>{c}</span>' for c in contacts)}<a class="cw-top-cta" href="contact" target="_self">Contact Sales</a></div>
             </div>
         </section>
     """)
 
 
-def hero(title: str, text: str, buttons: str = "", small: bool = True) -> None:
+def hero(title: str, text: str, buttons: str = "", small: bool = True, badge: str = "") -> None:
     topbar()
     html(f"""
         <section class="cw-bleed cw-hero {'small' if small else ''}">
             <div class="cw-wrap">
+                {f'<div class="cw-hero-badge">{badge}</div>' if badge else ''}
                 <div class="cw-h1" role="heading" aria-level="1">{title}</div>
                 <p class="cw-lead">{text}</p>
                 {f'<div class="cw-btns">{buttons}</div>' if buttons else ''}
@@ -126,8 +158,7 @@ def footer() -> None:
         lines.append(f'<p class="cw-small"><a class="cw-accent" href="mailto:{cfg.EMAIL}">{cfg.EMAIL}</a></p>')
     if cfg.WEBSITE:
         lines.append(f'<p class="cw-small">{cfg.WEBSITE}</p>')
-    if cfg.LINKEDIN_URL:
-        lines.append(f'<p class="cw-small"><a class="cw-accent" href="{cfg.LINKEDIN_URL}">LinkedIn</a></p>')
+    lines.append(social_links())
     product_links = "".join(f'<a href="products" target="_self">{p["name"]}</a>' for p in PRODUCTS[:5])
     html(f"""
         <section class="cw-bleed cw-footer">
@@ -351,7 +382,8 @@ def knowledge() -> None:
 
 
 def about() -> None:
-    hero(f"About {g('Caseware UAE')}", cfg.ABOUT_US)
+    badge = img_tag(LEEDS_LOGO, "", cfg.LEGAL_NAME) if LEEDS_LOGO.exists() else ""
+    hero(f"About {g(cfg.LEGAL_NAME or 'Caseware UAE')}", cfg.ABOUT_US, badge=badge)
     split(
         "About Caseware",
         "<p>Caseware is a global provider of software for the audit and accounting profession. Founded in "
@@ -360,11 +392,10 @@ def about() -> None:
         '<p style="margin-top:22px"><a class="cw-btn" href="https://www.caseware.com" target="_blank">Visit caseware.com</a></p>',
         [("130", "countries"), ("1988", "founded"), ("Toronto", "headquarters"), ("Global", "audit and accounting platform")],
     )
-    operated = f"<p style='margin-top:14px'>Operated by {cfg.LEGAL_NAME}.</p>" if cfg.LEGAL_NAME else ""
     split(
         "Our role in the UAE",
         "<p>As the distributor for the UAE, we are your local point of contact for Caseware products: "
-        "advice on the right solution, licensing, onboarding, training and day-to-day support.</p>" + operated,
+        "advice on the right solution, licensing, onboarding, training and day-to-day support.</p>",
         [(title, text) for title, text in WHY_US],
         panel_first=True,
     )
@@ -423,8 +454,7 @@ def contact() -> None:
             st.caption("Contact details will appear here once added to site_config.py.")
         if cfg.WHATSAPP:
             st.link_button("Chat on WhatsApp", f"https://wa.me/{cfg.WHATSAPP}")
-        if cfg.LINKEDIN_URL:
-            st.link_button("Follow us on LinkedIn", cfg.LINKEDIN_URL)
+        html(social_links("on-light"))
     html('<div class="cw-space"></div>')
     footer()
 
