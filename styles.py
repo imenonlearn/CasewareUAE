@@ -17,11 +17,11 @@ CSS = """
 html, body, .stApp, .stApp p, .stApp li, .stApp label, .stApp button, .stApp input, .stApp textarea,
 .stApp a, .stApp span, .stApp h1, .stApp h2, .stApp h3 { font-family: 'League Spartan', sans-serif; }
 .stApp span[data-testid="stIconMaterial"] { font-family: 'Material Symbols Rounded'; }
-.stAppHeader { background: #fff; border-bottom: 1px solid #ececec; }
+.stAppHeader { background: #fff; border-bottom: 1px solid #ececec; height: 80px; }
 .stAppHeader a, .stAppHeader span { color: #737373; font-weight: 500; font-size: 16px; }
-img.stLogo { height: 27px; width: auto; max-width: none; }
+img.stLogo { height: 60px; width: auto; max-width: none; }
 [data-testid="stLogoLink"] { flex-shrink: 0; }
-.stMainBlockContainer { padding: 3.75rem 0 0 0 !important; max-width: none !important; }
+.stMainBlockContainer { padding: 80px 0 0 0 !important; max-width: none !important; }
 .stMainBlockContainer > div[data-testid="stVerticalBlock"] { gap: 0; }
 .stMainBlockContainer > div[data-testid="stVerticalBlock"] > div:not(:has(.cw-bleed)) {
     max-width: 1140px; width: 100%; margin: 0 auto 1.1rem auto; padding: 0 20px;
@@ -55,7 +55,7 @@ img.stLogo { height: 27px; width: auto; max-width: none; }
 .cw-topbar { background: #303333; color: #fff; font-size: 15px; padding: 11px 0 9px; }
 .cw-topbar .cw-wrap { display: flex; justify-content: space-between; gap: 6px 24px; flex-wrap: wrap; }
 .stApp .cw-topbar a { color: #fff; font-weight: 500; }
-.stApp a.cw-header-cta { position: fixed; top: 9px; right: 28px; z-index: 1000000; padding: 14px 22px 11px;
+.stApp a.cw-header-cta { position: fixed; top: 19px; right: 28px; z-index: 1000000; padding: 14px 22px 11px;
     border-radius: 15px; background: var(--cw-grad-btn); color: #fff; font-weight: 600; font-size: 16px;
     line-height: 1; text-decoration: none; }
 
@@ -147,7 +147,9 @@ img.stLogo { height: 27px; width: auto; max-width: none; }
 .cw-fgrid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 34px; }
 .cw-word { font-size: 40px; font-weight: 600; letter-spacing: -1.5px; line-height: 1; margin-bottom: 18px; color: #fff; }
 .cw-word small { font-size: 17px; letter-spacing: 0; margin-left: 6px; }
-.cw-footer img.cw-flogo { height: 32px; margin: 0 0 18px -5px; display: block; }
+.cw-footer img.cw-flogo { height: 110px; margin: 0 0 18px 0; display: block; }
+.cw-leeds { display: inline-block; background: #fff; border-radius: 10px; padding: 10px 16px; margin: 22px 0 14px; }
+.cw-leeds img { height: 56px; display: block; }
 .stApp .cw-bleed.cw-footer p { color: #fff; line-height: 1.5; margin-bottom: 14px; }
 .stApp .cw-bleed.cw-footer p.cw-small { font-size: 14px; margin-bottom: 4px; }
 .cw-fh { font-size: 19px; font-weight: 700; margin-bottom: 22px; }

@@ -13,6 +13,7 @@ ROOT = Path(__file__).parent
 ASSETS = ROOT / "assets" if (ROOT / "assets" / "logo.png").exists() else ROOT
 LOGO = ASSETS / "logo.png"              # official Caseware logo, dark text (optional)
 LOGO_WHITE = ASSETS / "logo_white.png"  # official Caseware logo, white text (optional)
+LEEDS_LOGO = ASSETS / "leeds_logo.png"  # Leeds Software Solutions logo (optional)
 
 st.set_page_config(page_title=cfg.SITE_NAME, page_icon=":material/analytics:", layout="wide")
 
@@ -30,12 +31,23 @@ def btn(label: str, page: str, style: str = "") -> str:
     return f'<a class="cw-btn {style}" href="{page}" target="_self">{label}</a>'
 
 
+def tel(number: str, cls: str = "") -> str:
+    return f'<a class="{cls}" href="tel:{number.replace(" ", "")}">{number}</a>'
+
+
+def img_tag(path: Path, cls: str, alt: str) -> str:
+    data = base64.b64encode(path.read_bytes()).decode()
+    return f'<img class="{cls}" src="data:image/png;base64,{data}" alt="{alt}">'
+
+
 def topbar() -> None:
     contacts = []
     if cfg.EMAIL:
         contacts.append(f'<a href="mailto:{cfg.EMAIL}">{cfg.EMAIL}</a>')
     if cfg.PHONE:
-        contacts.append(f"<span>{cfg.PHONE}</span>")
+        contacts.append(f"Tel: {tel(cfg.PHONE)}")
+    if cfg.MOBILE:
+        contacts.append(f"Mobile: {tel(cfg.MOBILE)}")
     html(f"""
         <section class="cw-bleed cw-topbar">
             <div class="cw-wrap">
@@ -96,15 +108,25 @@ def cta() -> None:
 def footer() -> None:
     operator = cfg.LEGAL_NAME or cfg.SITE_NAME
     if LOGO_WHITE.exists():
-        data = base64.b64encode(LOGO_WHITE.read_bytes()).decode()
-        brand = f'<img class="cw-flogo" src="data:image/png;base64,{data}" alt="Caseware">'
+        brand = img_tag(LOGO_WHITE, "cw-flogo", "Caseware")
     else:
         brand = '<div class="cw-word">caseware<small>UAE</small></div>'
-    lines = [f'<p class="cw-small">{cfg.ADDRESS}</p>' if cfg.ADDRESS else ""]
+    # Distributor block: Leeds logo, company name and contact card details
+    lines = []
+    if LEEDS_LOGO.exists():
+        lines.append(f'<div class="cw-leeds">{img_tag(LEEDS_LOGO, "", cfg.LEGAL_NAME or "Leeds")}</div>')
+    if cfg.LEGAL_NAME:
+        lines.append(f'<p class="cw-small"><b>{cfg.LEGAL_NAME}</b></p>')
+    if cfg.ADDRESS:
+        lines.append(f'<p class="cw-small">{cfg.ADDRESS}</p>')
     if cfg.PHONE:
-        lines.append(f'<p class="cw-small">Sales: <a class="cw-accent" href="tel:{cfg.PHONE}">{cfg.PHONE}</a></p>')
+        lines.append(f'<p class="cw-small">Tel: {tel(cfg.PHONE, "cw-accent")}</p>')
+    if cfg.MOBILE:
+        lines.append(f'<p class="cw-small">Mobile: {tel(cfg.MOBILE, "cw-accent")}</p>')
     if cfg.EMAIL:
         lines.append(f'<p class="cw-small"><a class="cw-accent" href="mailto:{cfg.EMAIL}">{cfg.EMAIL}</a></p>')
+    if cfg.WEBSITE:
+        lines.append(f'<p class="cw-small">{cfg.WEBSITE}</p>')
     if cfg.LINKEDIN_URL:
         lines.append(f'<p class="cw-small"><a class="cw-accent" href="{cfg.LINKEDIN_URL}">LinkedIn</a></p>')
     product_links = "".join(f'<a href="products" target="_self">{p["name"]}</a>' for p in PRODUCTS[:5])
@@ -389,7 +411,9 @@ def contact() -> None:
         st.subheader("Get in touch", anchor=False)
         details = [
             ("Email", cfg.EMAIL and f"[{cfg.EMAIL}](mailto:{cfg.EMAIL})"),
-            ("Phone", cfg.PHONE),
+            ("Company", cfg.LEGAL_NAME),
+            ("Tel", cfg.PHONE),
+            ("Mobile", cfg.MOBILE),
             ("Address", cfg.ADDRESS),
             ("Hours", cfg.OFFICE_HOURS),
         ]

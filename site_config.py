@@ -6,16 +6,18 @@ string ("") is simply hidden on the site.
 
 # Name shown in the header and browser tab
 SITE_NAME = "Caseware UAE"
-TAGLINE = "Distributor of Caseware audit, assurance and data analytics software in the UAE"
+TAGLINE = "Distributor of Caseware audit, assurance and financial reporting software in the UAE"
 
 # Your registered company name (shown in the footer and About page)
-LEGAL_NAME = ""
+LEGAL_NAME = "Leeds Software Solutions"
 
 # Contact details
 EMAIL = ""            # e.g. "sales@yourcompany.ae" - enquiry form sends here
-PHONE = ""            # e.g. "+971 4 000 0000"
+PHONE = "+971 4 2355012"
+MOBILE = "+971 50 379 8660"
+WEBSITE = "www.caseware.ae"
 WHATSAPP = ""         # digits only with country code, e.g. "971500000000"
-ADDRESS = ""          # e.g. "Office 000, Building, Area, Dubai, UAE"
+ADDRESS = "1601C, City Tower 2, Sheikh Zayed Road, Dubai, UAE"
 OFFICE_HOURS = ""     # e.g. "Monday to Friday, 9:00 am - 6:00 pm (GST)"
 LINKEDIN_URL = ""     # e.g. "https://www.linkedin.com/company/your-page"
 
