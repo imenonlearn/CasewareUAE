@@ -52,12 +52,13 @@ img.stLogo { height: 60px; width: auto; max-width: none; }
     background: linear-gradient(180deg, #FF645C 0%, #E956AF 100%); }
 
 /* ---------- Top bar + header button ---------- */
-.cw-topbar { background: #303333; color: #fff; font-size: 15px; padding: 11px 0 9px; }
-.cw-topbar .cw-wrap { display: flex; justify-content: space-between; gap: 6px 24px; flex-wrap: wrap; }
+.cw-topbar { background: #303333; color: #fff; font-size: 15px; padding: 8px 0; }
+.cw-topbar .cw-wrap { display: flex; justify-content: space-between; align-items: center; gap: 6px 24px; flex-wrap: wrap; }
 .stApp .cw-topbar a { color: #fff; font-weight: 500; }
-.stApp a.cw-header-cta { position: fixed; top: 19px; right: 28px; z-index: 1000000; padding: 14px 22px 11px;
-    border-radius: 15px; background: var(--cw-grad-btn); color: #fff; font-weight: 600; font-size: 16px;
-    line-height: 1; text-decoration: none; }
+.cw-contacts { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 20px; }
+.cw-contacts span { white-space: nowrap; }
+.stApp .cw-topbar a.cw-top-cta { display: inline-block; padding: 9px 18px 7px; border-radius: 10px; white-space: nowrap;
+    background: var(--cw-grad-btn); color: #fff; font-weight: 600; line-height: 1; text-decoration: none; }
 
 /* ---------- Hero ---------- */
 .cw-hero { color: #fff; text-align: center; padding: 100px 0 110px;
@@ -170,7 +171,6 @@ img.stLogo { height: 60px; width: auto; max-width: none; }
     .cw-fgrid { grid-template-columns: 1fr 1fr; }
     .cw-dark, .cw-light { padding: 64px 0; }
     .cw-cta { padding: 76px 0 84px; }
-    .stApp a.cw-header-cta { display: none; }
     .cw-light.deco::before { opacity: .35; }
 }
 </style>

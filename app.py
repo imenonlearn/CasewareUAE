@@ -52,9 +52,8 @@ def topbar() -> None:
         <section class="cw-bleed cw-topbar">
             <div class="cw-wrap">
                 <span>Distributor of Caseware software in the United Arab Emirates</span>
-                <span>{' &nbsp;|&nbsp; '.join(contacts)}</span>
+                <div class="cw-contacts">{''.join(f'<span>{c}</span>' for c in contacts)}<a class="cw-top-cta" href="contact" target="_self">Contact Sales</a></div>
             </div>
-            <a class="cw-header-cta" href="contact" target="_self">Contact Sales</a>
         </section>
     """)
 
