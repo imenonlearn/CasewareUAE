@@ -6,31 +6,42 @@ string ("") is simply hidden on the site.
 
 # Name shown in the header and browser tab
 SITE_NAME = "Caseware UAE"
-TAGLINE = "Distributor of Caseware audit, assurance and financial reporting software in the UAE"
 
-# Your registered company name (shown in the footer and About page)
-LEGAL_NAME = "Leeds Software Solutions"
+# Company names: the trading name is used in body copy, the legal name in the footer and legal pages
+BRAND_NAME = "Leeds Software Solutions"
+LEGAL_NAME = "Leeds Software Solutions LLC"
+TRADE_LICENCE = ""    # e.g. "Trade licence no. 000000, Dubai" - shown in the footer once added
+
+# Top bar wording (brief 3.1)
+TOPBAR_TEXT = "Authorised Caseware Distributor for the UAE · Sales, onboarding, training and support"
 
 # Contact details
-EMAIL = ""            # e.g. "sales@yourcompany.ae" - enquiry form sends here
+EMAIL = ""            # e.g. "sales@caseware.ae" - enquiry form sends here
 PHONE = "+971 4 2355012"
 MOBILE = "+971 50 379 8660"
 WEBSITE = "www.caseware.ae"
-WHATSAPP = ""         # digits only with country code, e.g. "971500000000"
+WHATSAPP = "971503798660"   # digits only with country code
+WHATSAPP_MESSAGE = "Hello, I'd like to know more about Caseware."
 ADDRESS = "1601C, City Tower 2, Sheikh Zayed Road, Dubai, UAE"
-OFFICE_HOURS = ""     # e.g. "Monday to Friday, 9:00 am - 6:00 pm (GST)"
+PO_BOX = "P.O. Box 34768, Dubai, UAE"
+MAP_QUERY = "City Tower 2, Sheikh Zayed Road, Dubai"
+OFFICE_HOURS = ""     # e.g. "Monday to Friday, 9:00 am - 6:00 pm (UAE time)"
 
-# Social media pages. Icons always show; paste the page address once each account exists
-FACEBOOK_URL = ""     # e.g. "https://www.facebook.com/your-page"
+# Caseware facts shown on the site. Check against caseware.com on the day of publication.
+CASEWARE_COUNTRIES = "130"
+CASEWARE_FOUNDED = "1988"
+
+# Caseware Cloud hosting region for UAE customers, once confirmed (e.g. "the EU").
+# Leave blank and the site says "ask us which region applies to your licence".
+CLOUD_HOSTING_REGION = ""
+
+# Social media pages. LinkedIn and YouTube icons always show; paste the page address to make each clickable.
 LINKEDIN_URL = ""     # e.g. "https://www.linkedin.com/company/your-page"
-X_URL = ""            # e.g. "https://x.com/your-handle"
-INSTAGRAM_URL = ""    # e.g. "https://www.instagram.com/your-handle"
 YOUTUBE_URL = ""      # e.g. "https://www.youtube.com/@your-channel"
 
-# A short paragraph about your company for the About page
+# About page header (brief 7.4)
 ABOUT_US = (
-    "We, Leeds Software Solutions, are the distributor for Caseware software in the United Arab Emirates. "
-    "We help audit firms, accounting practices, finance teams and internal audit "
-    "departments select, license and get the most out of Caseware solutions, "
-    "with support from a team based in the UAE."
+    "Leeds Software Solutions is the authorised distributor of Caseware in the UAE. We help "
+    "audit firms, corporate finance teams, internal audit functions and public sector bodies "
+    "select, set up and get lasting value from Caseware, with a team based in the UAE."
 )
