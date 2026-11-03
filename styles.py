@@ -69,8 +69,11 @@ img.stLogo { height: 60px; width: auto; max-width: none; }
     background: linear-gradient(180deg, #FF645C 0%, #E956AF 100%); }
 
 /* ---------- Top bar + header button ---------- */
-.cw-topbar { background: #303333; color: #fff; font-size: 15px; padding: 8px 0; }
-.cw-topbar .cw-wrap { display: flex; justify-content: space-between; align-items: center; gap: 6px 24px; flex-wrap: wrap; }
+.cw-topbar { background: #303333; color: #fff; font-size: 14.5px; padding: 8px 0; }
+/* Full width so the text, contacts and button sit on one line; wraps only on narrow screens */
+.cw-topbar .cw-wrap { max-width: none; padding: 0 32px; display: flex; justify-content: space-between; align-items: center;
+    gap: 6px 24px; flex-wrap: nowrap; }
+.cw-topleft span { white-space: nowrap; }
 .stApp .cw-topbar a { color: #fff; font-weight: 500; }
 .cw-topleft { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 22px; }
 .cw-social { display: flex; align-items: center; gap: 16px; color: #fff; }
@@ -220,6 +223,11 @@ img.stLogo { height: 60px; width: auto; max-width: none; }
 .stApp .cw-bleed.cw-footer a.cw-accent { color: #FF5C7A; display: inline; }
 .cw-legal { border-top: 1px solid #38393C; margin-top: 40px; padding-top: 24px; text-align: center; }
 .stApp .cw-bleed.cw-footer .cw-legal p { font-size: 13.5px; color: #cfcfcf; margin-bottom: 6px; }
+
+@media (max-width: 1240px) {
+    .cw-topbar .cw-wrap { flex-wrap: wrap; justify-content: center; padding: 0 20px; }
+    .cw-topleft span { white-space: normal; }
+}
 
 @media (max-width: 860px) {
     .cw-h1 { font-size: 34px; }
