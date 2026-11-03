@@ -154,16 +154,29 @@ def split(heading: str, body: str, stats, panel_first: bool = False) -> None:
     html(f'<section class="cw-bleed"><div class="cw-wrap"><div class="cw-split">{parts[0]}{parts[1]}</div></div></section>')
 
 
-def out_cards(cards, columns: int = 2) -> str:
+def balanced_columns(count: int, most: int) -> int:
+    """Columns that keep rows full: all in one row if they fit, else the largest even split, e.g. 9 -> 3, 4 -> 2."""
+    if count <= most:
+        return max(count, 1)
+    for cols in range(most, 1, -1):
+        if count % cols == 0:
+            return cols
+    return most
+
+
+def out_cards(cards, columns: int | None = None) -> str:
+    cols = columns or balanced_columns(len(cards), 3)
     items = "".join(
         f'<div class="cw-out {"pink" if i % 2 else ""}"><div class="cw-h3">{title}</div>{body}</div>'
         for i, (title, body) in enumerate(cards)
     )
-    return f'<div class="cw-grid{columns}">{items}</div>'
+    return f'<div class="cw-grid{cols}">{items}</div>'
 
 
 def sector_cards(cards) -> str:
-    return '<div class="cw-cards">' + "".join(cards) + "</div>"
+    """Dark outlined cards, all in one row when there are six or fewer."""
+    cols = balanced_columns(len(cards), 6)
+    return f'<div class="cw-cards cols-{cols}">' + "".join(cards) + "</div>"
 
 
 def dark_cards(title: str, cards, anchor: str = "") -> None:
@@ -172,9 +185,11 @@ def dark_cards(title: str, cards, anchor: str = "") -> None:
         f'<div class="cw-sector"><div class="cw-h3">{t}</div><p>{text}</p>{link}</div>'
         for t, text, link in cards
     ]
+    # Five or six cards get a wider band so each card keeps a readable width
+    wide = "wide" if len(items) >= 5 else ""
     html(f"""
         <section class="cw-bleed cw-dark" {f'id="{anchor}"' if anchor else ''}>
-            <div class="cw-wrap">
+            <div class="cw-wrap {wide}">
                 <div class="cw-h2 cw-grad" role="heading" aria-level="2">{title}</div>
                 {sector_cards(items)}
             </div>
@@ -182,7 +197,7 @@ def dark_cards(title: str, cards, anchor: str = "") -> None:
     """)
 
 
-def light_cards(title: str, cards, columns: int = 3, deco: bool = False, after: str = "") -> None:
+def light_cards(title: str, cards, columns: int | None = None, deco: bool = False, after: str = "") -> None:
     html(f"""
         <section class="cw-bleed cw-light {'deco' if deco else ''}">
             <div class="cw-wrap">
@@ -372,13 +387,12 @@ def segment_page(slug: str) -> None:
     demo_link = f"contact?segment={slug}"
     hero(lead_grad(s["headline"]), s["sub"], btn(s["cta"], demo_link))
     if s["challenges"]:
-        light_cards("The challenge", [(t, f"<p>{text}</p>") for t, text in s["challenges"]], columns=3)
+        light_cards("The challenge", [(t, f"<p>{text}</p>") for t, text in s["challenges"]])
     heading = "How Caseware helps" if slug == "audit-quality" else "How Caseware solves it"
     dark_cards(heading, [(t, text, "") for t, text in s["solves"]])
     light_cards(
         "Products used",
         [(name, f'<p>{PRODUCT_BY_NAME[name]["tagline"]}</p>') for name in s["products"]],
-        columns=3,
         after=f'<div class="cw-btns" style="margin-top:36px">{btn("See all products", "products")}</div>',
     )
     if s["faqs"]:
@@ -647,8 +661,8 @@ def privacy_policy() -> None:
         correct or delete your personal information, and to withdraw your consent to marketing. To make a
         request, {contact_line}.</p>
         <h3>This website</h3>
-        <p>This website is hosted on Streamlit Community Cloud, a third-party platform that processes technical
-        information, such as IP addresses, to deliver the site. See our cookie policy for more detail.</p>
+        <p>Our website hosting provider processes technical information, such as IP addresses, to deliver the
+        site and keep it secure. See our cookie policy for more detail.</p>
         <h3>Changes</h3>
         <p>We may update this policy. The date at the top shows when it last changed.</p>
     """)
