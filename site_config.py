@@ -16,7 +16,7 @@ TRADE_LICENCE = ""    # e.g. "Trade licence no. 000000, Dubai" - shown in the fo
 TOPBAR_TEXT = "Authorised Caseware Distributor for the UAE · Sales, onboarding, training and support"
 
 # Contact details
-EMAIL = "support@caseware.ae"   # enquiries are sent here
+EMAIL = "sales@caseware.ae"   # enquiries are sent here
 
 # Optional: an embedded Microsoft Forms link that records enquiries in Excel.
 # Paste the form's embed address (Collect responses → Embed, the src="..." part).
