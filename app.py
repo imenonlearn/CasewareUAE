@@ -567,6 +567,38 @@ def trust() -> None:
     footer()
 
 
+def enquiry_form(segment_names, preset) -> None:
+    """Built-in form: prepares an email to cfg.EMAIL in the visitor's own email app."""
+    with st.form("enquiry"):
+        name = st.text_input("Name *")
+        organisation = st.text_input("Organisation *")
+        role = st.text_input("Role")
+        email = st.text_input("Email *")
+        phone = st.text_input("Phone")
+        segment = st.selectbox("Which best describes you?", segment_names,
+                               index=segment_names.index(preset) if preset else 0)
+        users = st.selectbox("Number of users", ["1-5", "6-20", "21-50", "50+"])
+        message = st.text_area("How can we help?")
+        consent = st.checkbox(f"I agree to receive occasional updates from {cfg.BRAND_NAME} about Caseware "
+                              "products and events.")
+        submitted = st.form_submit_button("Prepare enquiry", type="primary")
+
+    if submitted:
+        if not (name.strip() and organisation.strip() and "@" in email):
+            st.error("Please enter your name, organisation and a valid email address.")
+        elif not cfg.EMAIL:
+            st.warning("Enquiry email is not configured yet. Set EMAIL in site_config.py.")
+        else:
+            body = (
+                f"Name: {name}\nOrganisation: {organisation}\nRole: {role}\nEmail: {email}\nPhone: {phone}\n"
+                f"Segment: {segment}\nUsers: {users}\nMarketing consent: {'Yes' if consent else 'No'}\n\n{message}"
+            )
+            subject = f"Caseware demo request ({segment}) from {organisation}"
+            mailto = f"mailto:{cfg.EMAIL}?subject={quote(subject)}&body={quote(body)}"
+            st.success("Your enquiry is ready. Click below to send it from your email app.")
+            st.link_button("Send enquiry by email", mailto, type="primary")
+
+
 def contact() -> None:
     seo(f"Contact Caseware UAE · {cfg.BRAND_NAME}")
     hero(
@@ -579,34 +611,12 @@ def contact() -> None:
     form_col, info_col = st.columns([3, 2], gap="large")
 
     with form_col:
-        with st.form("enquiry"):
-            name = st.text_input("Name *")
-            organisation = st.text_input("Organisation *")
-            role = st.text_input("Role")
-            email = st.text_input("Email *")
-            phone = st.text_input("Phone")
-            segment = st.selectbox("Which best describes you?", segment_names,
-                                   index=segment_names.index(preset) if preset else 0)
-            users = st.selectbox("Number of users", ["1-5", "6-20", "21-50", "50+"])
-            message = st.text_area("How can we help?")
-            consent = st.checkbox(f"I agree to receive occasional updates from {cfg.BRAND_NAME} about Caseware "
-                                  "products and events.")
-            submitted = st.form_submit_button("Prepare enquiry", type="primary")
-
-        if submitted:
-            if not (name.strip() and organisation.strip() and "@" in email):
-                st.error("Please enter your name, organisation and a valid email address.")
-            elif not cfg.EMAIL:
-                st.warning("Enquiry email is not configured yet. Set EMAIL in site_config.py.")
-            else:
-                body = (
-                    f"Name: {name}\nOrganisation: {organisation}\nRole: {role}\nEmail: {email}\nPhone: {phone}\n"
-                    f"Segment: {segment}\nUsers: {users}\nMarketing consent: {'Yes' if consent else 'No'}\n\n{message}"
-                )
-                subject = f"Caseware demo request ({segment}) from {organisation}"
-                mailto = f"mailto:{cfg.EMAIL}?subject={quote(subject)}&body={quote(body)}"
-                st.success("Your enquiry is ready. Click below to send it from your email app.")
-                st.link_button("Send enquiry by email", mailto, type="primary")
+        form_url = getattr(cfg, "ENQUIRY_FORM_URL", "")
+        if form_url:
+            # Microsoft Forms embed: responses are recorded in the form's Excel workbook
+            components.iframe(form_url, height=1250, scrolling=True)
+        else:
+            enquiry_form(segment_names, preset)
         st.caption(f"{confidentiality_statement()} See [Trust and data security](trust) and our "
                    "[privacy policy](privacy-policy).")
 
@@ -633,14 +643,19 @@ def privacy_policy() -> None:
     seo("Privacy Policy · Caseware UAE")
     hero("Privacy policy", "How we handle personal information you share with us. Last updated 3 November 2026.")
     contact_line = f"email {cfg.EMAIL} or call {cfg.PHONE}" if cfg.EMAIL else f"call {cfg.PHONE}"
+    if getattr(cfg, "ENQUIRY_FORM_URL", ""):
+        form_handling = ("The form is provided by Microsoft Forms, and your answers are stored in our Microsoft 365 "
+                         "account so we can follow up.")
+    else:
+        form_handling = ("The form prepares an email in your own email app; nothing you type is stored on this "
+                         "website. We receive your details when you send that email.")
     prose("Who we are", f"""
         <p>This website is operated by {cfg.LEGAL_NAME} ("Leeds", "we"), {cfg.ADDRESS}, {cfg.PO_BOX}.
         We are the authorised distributor of Caseware software in the United Arab Emirates.</p>
         <h3>What we collect</h3>
         <p>When you use the enquiry form, we collect the details you enter: your name, organisation, role, email
-        address, phone number, the segment that describes you, the number of users and your message. The form
-        prepares an email in your own email app; nothing you type is stored on this website. We receive your
-        details when you send that email. We also receive personal information when you call us, message us on
+        address, phone number, the segment that describes you, the number of users and your message.
+        {form_handling} We also receive personal information when you call us, message us on
         WhatsApp or email us directly.</p>
         <h3>How we use it</h3>
         <ul>
